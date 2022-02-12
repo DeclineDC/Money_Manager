@@ -1,0 +1,15 @@
+package com.decline.moneymanagerv2.app_features.domain.use_case
+
+import com.decline.moneymanagerv2.app_features.domain.model.Transaction
+import com.decline.moneymanagerv2.app_features.domain.repository.MoneyManagerRepository
+import com.decline.moneymanagerv2.app_features.domain.util.InvalidTransactionException
+import kotlinx.coroutines.flow.Flow
+
+class GetTransactions(
+    private val repository: MoneyManagerRepository
+) {
+
+    operator fun invoke(): Flow<List<Transaction>> {
+        return repository.getTransactions()
+    }
+}
