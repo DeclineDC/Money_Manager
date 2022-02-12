@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Money Manager v2</string>
+    <string name="previous_date">Previous Date</string>
+    <string name="next_date">Next Date</string>
 </resources>

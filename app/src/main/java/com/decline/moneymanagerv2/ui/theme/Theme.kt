@@ -6,6 +6,7 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColors(
     background = BackgroundDark,
@@ -37,6 +38,17 @@ fun MoneyManagerV2Theme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
+
+    val systemUiController = rememberSystemUiController()
+    if (darkTheme) {
+        systemUiController.setStatusBarColor(
+            color = SurfaceDark
+        )
+    } else {
+        systemUiController.setStatusBarColor(
+            color = SurfaceLight
+        )
+    }
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {
