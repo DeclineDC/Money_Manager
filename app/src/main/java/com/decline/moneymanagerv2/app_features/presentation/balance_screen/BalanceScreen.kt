@@ -3,10 +3,9 @@ package com.decline.moneymanagerv2.app_features.presentation.balance_screen
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -17,17 +16,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.decline.moneymanagerv2.R
 import com.decline.moneymanagerv2.app_features.presentation.balance_screen.components.BalanceBar
 import com.decline.moneymanagerv2.app_features.presentation.balance_screen.components.DateSelector
+import com.decline.moneymanagerv2.app_features.presentation.balance_screen.components.TransactionItem
 import com.decline.moneymanagerv2.ui.theme.LocalSpacing
 import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun BalanceScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: BalanceViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
 
@@ -76,6 +78,18 @@ fun BalanceScreen(
                     .padding(spacing.spaceExtraSmall)
             )
             Divider(thickness = 1.dp, modifier = Modifier.shadow(elevation = 3.dp))
+            Spacer(modifier = Modifier.padding(spacing.spaceExtraSmall))
+            LazyColumn(contentPadding = PaddingValues(bottom = 80.dp)) {
+                items(viewModel.transactions) { transaction ->
+                    TransactionItem(
+                        transaction = transaction,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(MaterialTheme.colors.background)
+                    )
+
+                }
+            }
 
         }
     }

@@ -1,11 +1,16 @@
 package com.decline.moneymanagerv2.app_features.presentation.balance_screen.components
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import com.decline.moneymanagerv2.ui.theme.TextColor1D
+import com.decline.moneymanagerv2.ui.theme.TextColor1L
+import com.decline.moneymanagerv2.ui.theme.TextColor2L
 
 @Composable
 fun BalanceInfo(
@@ -13,12 +18,14 @@ fun BalanceInfo(
     data: String?,
     color: Color
 ) {
+    val isDarkTheme = isSystemInDarkTheme()
+
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = text)
-        Text(text = "$data", color = color)
+        Text(text = text, style = MaterialTheme.typography.h5, color = if (isDarkTheme) TextColor1D else TextColor1L)
+        Text(text = "$data", color = color, style = MaterialTheme.typography.h4)
     }
 
 }
