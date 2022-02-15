@@ -1,11 +1,13 @@
 package com.decline.moneymanagerv2.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColors(
@@ -64,3 +66,22 @@ fun MoneyManagerV2Theme(
     }
 
 }
+
+
+val Colors.UnselectedButtonBackgroundColor: Color
+@Composable
+    get() = if (isLight) ButtonBackgroundL else ButtonBackgroundD
+
+val Colors.SelectedButtonBackgroundColor: Color
+    @Composable
+    get() = if (isLight) White else PrimaryDark
+
+val Colors.ButtonBorder: Color
+    @Composable
+    get() = if (isLight) ButtonBorderL else ButtonBorderD
+
+val Colors.ButtonText: Color
+    @Composable
+    get() = if (isLight) ButtonTextL else ButtonTextD
+
+

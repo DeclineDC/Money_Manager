@@ -22,6 +22,7 @@ import com.decline.moneymanagerv2.R
 import com.decline.moneymanagerv2.app_features.presentation.balance_screen.components.BalanceBar
 import com.decline.moneymanagerv2.app_features.presentation.balance_screen.components.DateSelector
 import com.decline.moneymanagerv2.app_features.presentation.balance_screen.components.TransactionItem
+import com.decline.moneymanagerv2.app_features.presentation.util.Screen
 import com.decline.moneymanagerv2.ui.theme.LocalSpacing
 import java.time.LocalDate
 
@@ -38,6 +39,7 @@ fun BalanceScreen(
             FloatingActionButton(
                 shape = RoundedCornerShape(spacing.spaceMedium),
                 onClick = {
+                    navController.navigate(Screen.AddEditTransactionScreen.route)
                 },
                 backgroundColor = MaterialTheme.colors.secondary
             ) {

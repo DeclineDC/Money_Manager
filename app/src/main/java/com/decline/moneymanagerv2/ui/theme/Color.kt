@@ -30,3 +30,13 @@ val TextColor3D = Color(0xFFffabadb1)
 val ExpenseColor = Color(0xFFfffe6254)
 val TotalColor = Color(0xFFff1e88ff)
 val IncomeColor = Color(0xFF2e7d32)
+
+val ButtonBorderL = Color(0xFFffdbdbdb)
+val ButtonBackgroundL = Color(0xFFfff5f5f5)
+val ButtonTextL = Color(0xFFff7b7b7b)
+
+val ButtonBorderD = Color(0xFFff343639)
+val ButtonBackgroundD = Color(0xFFff181819)
+val ButtonTextD = Color(0xFFffabadb1)
+
+val White = Color(0xFFffffff)
