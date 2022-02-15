@@ -2,15 +2,14 @@ package com.decline.moneymanagerv2.app_features.presentation.balance_screen.comp
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.decline.moneymanagerv2.R
-import com.decline.moneymanagerv2.ui.theme.ExpenseColor
-import com.decline.moneymanagerv2.ui.theme.IncomeColor
-import com.decline.moneymanagerv2.ui.theme.TotalColor
+import com.decline.moneymanagerv2.ui.theme.Persimmon
+import com.decline.moneymanagerv2.ui.theme.SeaGreen
+import com.decline.moneymanagerv2.ui.theme.DodgerBlue
 
 @Composable
 fun BalanceBar(
@@ -25,9 +24,9 @@ fun BalanceBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        BalanceInfo(text = stringResource(id = R.string.income), data = "$income", color = IncomeColor)
-        BalanceInfo(text = stringResource(id = R.string.expenses), data = "$expenses", color = ExpenseColor)
-        BalanceInfo(text = stringResource(id = R.string.total), data = "$total", color = TotalColor)
+        BalanceInfo(text = stringResource(id = R.string.income), data = "$income", color = SeaGreen)
+        BalanceInfo(text = stringResource(id = R.string.expenses), data = "$expenses", color = Persimmon)
+        BalanceInfo(text = stringResource(id = R.string.total), data = "$total", color = DodgerBlue)
     }
 
 

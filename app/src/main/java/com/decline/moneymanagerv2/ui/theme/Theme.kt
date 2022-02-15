@@ -11,19 +11,19 @@ import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColors(
-    background = BackgroundDark,
-    surface = SurfaceDark,
-    primary = PrimaryDark,
-    secondary = SecondaryDark,
-    onSecondary = OnSecondaryDark
+    background = BlackBrown,
+    surface = Shark,
+    primary = Shark,
+    secondary = SeaGreen,
+    onSecondary = White
 )
 
 private val LightColorPalette = lightColors(
-    background = BackgroundLight,
-    surface = SurfaceLight,
-    primary = PrimaryLight,
-    secondary = SecondaryLight,
-    onSecondary = OnSecondaryLight
+    background = AthensGray,
+    surface = White,
+    primary = White,
+    secondary = SeaGreen,
+    onSecondary = White
 
     /* Other default colors to override
     background = Color.White,
@@ -44,11 +44,11 @@ fun MoneyManagerV2Theme(
     val systemUiController = rememberSystemUiController()
     if (darkTheme) {
         systemUiController.setStatusBarColor(
-            color = SurfaceDark
+            color = Shark
         )
     } else {
         systemUiController.setStatusBarColor(
-            color = SurfaceLight
+            color = White
         )
     }
     val colors = if (darkTheme) {
@@ -69,19 +69,35 @@ fun MoneyManagerV2Theme(
 
 
 val Colors.UnselectedButtonBackgroundColor: Color
-@Composable
-    get() = if (isLight) ButtonBackgroundL else ButtonBackgroundD
+    @Composable
+    get() = if (isLight) WildSand else WoodSmoke
 
 val Colors.SelectedButtonBackgroundColor: Color
     @Composable
-    get() = if (isLight) White else PrimaryDark
+    get() = if (isLight) White else Shark
 
-val Colors.ButtonBorder: Color
+val Colors.ButtonBorderColor: Color
     @Composable
-    get() = if (isLight) ButtonBorderL else ButtonBorderD
+    get() = if (isLight) Alto else Tuna
 
-val Colors.ButtonText: Color
+val Colors.ButtonTextColor: Color
     @Composable
-    get() = if (isLight) ButtonTextL else ButtonTextD
+    get() = if (isLight) Boulder else BomBay
+
+val Colors.BalanceInfoTextColor: Color
+    @Composable
+    get() = if (isLight) Tundora else White
+
+val Colors.TransactionInfoDateTextColor: Color
+    @Composable
+    get() = if (isLight) Gray else White
+
+val Colors.TextFieldRowTextColor: Color
+    @Composable
+    get() = if (isLight) Boulder else BomBay
+
+val Colors.TextFieldRowCursorColor: Color
+    @Composable
+    get() = if (isLight) Boulder else BomBay
 
 

@@ -1,7 +1,6 @@
 package com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
@@ -10,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.decline.moneymanagerv2.ui.theme.ButtonBorder
-import com.decline.moneymanagerv2.ui.theme.ButtonText
+import com.decline.moneymanagerv2.ui.theme.ButtonBorderColor
+import com.decline.moneymanagerv2.ui.theme.ButtonTextColor
 import com.decline.moneymanagerv2.ui.theme.SelectedButtonBackgroundColor
 import com.decline.moneymanagerv2.ui.theme.UnselectedButtonBackgroundColor
 
@@ -28,7 +27,7 @@ fun SelectableButton(
         onClick = onClick,
         border = BorderStroke(
             width = 1.dp,
-            color = if (isSelected) color else MaterialTheme.colors.ButtonBorder
+            color = if (isSelected) color else MaterialTheme.colors.ButtonBorderColor
         ),
         colors = ButtonDefaults.outlinedButtonColors(
             backgroundColor =
@@ -38,7 +37,7 @@ fun SelectableButton(
     ) {
         Text(
             text = text,
-            color = if (isSelected) color else MaterialTheme.colors.ButtonText
+            color = if (isSelected) color else MaterialTheme.colors.ButtonTextColor
         )
     }
 }

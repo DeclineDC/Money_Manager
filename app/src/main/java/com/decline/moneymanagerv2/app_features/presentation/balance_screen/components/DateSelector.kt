@@ -21,6 +21,7 @@ import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.decline.moneymanagerv2.R
+import com.decline.moneymanagerv2.ui.theme.LocalSpacing
 import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -31,6 +32,8 @@ fun DateSelector(
     onNextDateClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val spacing = LocalSpacing.current
+
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -40,7 +43,7 @@ fun DateSelector(
             Icon(
                 imageVector = Icons.Default.KeyboardArrowLeft,
                 contentDescription = stringResource(id = R.string.previous_date),
-                modifier = Modifier.size(32.dp)
+                modifier = Modifier.size(spacing.spaceLarge)
             )
         }
         Text(
@@ -50,7 +53,7 @@ fun DateSelector(
             Icon(
                 imageVector = Icons.Default.KeyboardArrowRight,
                 contentDescription = stringResource(id = R.string.next_date),
-                modifier = Modifier.size(32.dp)
+                modifier = Modifier.size(spacing.spaceLarge)
             )
         }
     }
