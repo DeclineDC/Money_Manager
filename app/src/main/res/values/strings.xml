@@ -6,5 +6,6 @@
     <string name="expenses">Expenses</string>
     <string name="total">Total</string>
     <string name="add_transaction">Add Transaction</string>
+    <string name="back">Back</string>
 
 </resources>
