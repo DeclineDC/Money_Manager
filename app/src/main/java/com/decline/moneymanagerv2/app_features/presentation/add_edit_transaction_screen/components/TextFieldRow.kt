@@ -1,9 +1,6 @@
 package com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -12,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.decline.moneymanagerv2.ui.theme.LocalSpacing
 import com.decline.moneymanagerv2.ui.theme.TextFieldRowCursorColor
 import com.decline.moneymanagerv2.ui.theme.TextFieldRowTextColor
@@ -39,13 +37,14 @@ fun TextFieldRow(
             softWrap = false,
             color = MaterialTheme.colors.TextFieldRowTextColor,
             modifier = Modifier
-                .padding(start = spacing.spaceSmall)
+                .padding(start = spacing.spaceMedium)
                 .weight(.25f)
         )
         TextField(
             modifier = Modifier
                 .padding(end = spacing.spaceMedium)
-                .weight(.7f),
+                .weight(.75f)
+                .offset(y = (-5).dp),
             readOnly = !isEditable,
             singleLine = true,
             value = value,

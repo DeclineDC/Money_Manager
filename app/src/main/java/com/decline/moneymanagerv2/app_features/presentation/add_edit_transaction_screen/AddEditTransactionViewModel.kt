@@ -18,8 +18,8 @@ class AddEditTransactionViewModel @Inject constructor(
     var isExpenseSelected by mutableStateOf(true)
         private set
 
-    var isIncomeSelected by mutableStateOf(false)
-        private set
+    /*var isIncomeSelected by mutableStateOf(false)
+        private set*/
 
 
     fun onEvent(event: AddEditTransactionEvent) {
@@ -30,10 +30,8 @@ class AddEditTransactionViewModel @Inject constructor(
             }
             is AddEditTransactionEvent.ExpenseSelected -> {
                 isExpenseSelected = true
-                isIncomeSelected = false
             }
             is AddEditTransactionEvent.IncomeSelected -> {
-                isIncomeSelected = true
                 isExpenseSelected = false
             }
             is AddEditTransactionEvent.DeleteTransaction -> {
