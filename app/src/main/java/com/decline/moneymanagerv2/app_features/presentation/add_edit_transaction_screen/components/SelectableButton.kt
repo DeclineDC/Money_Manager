@@ -26,6 +26,7 @@ fun SelectableButton(
 ) {
 
     OutlinedButton(
+        modifier = modifier,
         onClick = onClick,
         shape = RoundedCornerShape(10.dp),
         border = BorderStroke(

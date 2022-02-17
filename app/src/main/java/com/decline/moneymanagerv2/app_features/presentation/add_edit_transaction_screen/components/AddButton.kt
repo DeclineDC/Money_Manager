@@ -3,6 +3,7 @@ package com.decline.moneymanagerv2.app_features.presentation.add_edit_transactio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,7 +26,7 @@ fun AddButton(
         modifier = modifier
             .fillMaxWidth(.75f)
     ) {
-        Text(text = text, color = White)
+        Text(text = text, color = White, style = MaterialTheme.typography.h4)
     }
 }
 
