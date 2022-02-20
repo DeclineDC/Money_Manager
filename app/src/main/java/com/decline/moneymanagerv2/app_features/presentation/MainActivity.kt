@@ -11,7 +11,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.AddEditTransactionScreen
-import com.decline.moneymanagerv2.app_features.presentation.balance_screen.BalanceScreen
+import com.decline.moneymanagerv2.app_features.presentation.overview_screen.OverviewScreen
 import com.decline.moneymanagerv2.app_features.presentation.util.Screen
 import com.decline.moneymanagerv2.ui.theme.LocalSpacing
 import com.decline.moneymanagerv2.ui.theme.MoneyManagerV2Theme
@@ -38,12 +38,12 @@ class MainActivity : ComponentActivity() {
                 ) {
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = Screen.BalanceScreen.route
+                        startDestination = Screen.OverviewScreen.route
                     ) {
                         composable(
-                            route = Screen.BalanceScreen.route,
+                            route = Screen.OverviewScreen.route,
                         ) {
-                            BalanceScreen(navController = navController)
+                            OverviewScreen(navController = navController)
                         }
                         composable(
                             route = Screen.AddEditTransactionScreen.route +

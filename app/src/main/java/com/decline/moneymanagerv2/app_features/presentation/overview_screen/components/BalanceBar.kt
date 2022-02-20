@@ -1,4 +1,4 @@
-package com.decline.moneymanagerv2.app_features.presentation.balance_screen.components
+package com.decline.moneymanagerv2.app_features.presentation.overview_screen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -13,9 +13,9 @@ import com.decline.moneymanagerv2.ui.theme.DodgerBlue
 
 @Composable
 fun BalanceBar(
-    income: Double = 0.00,
-    expenses: Double = 0.00,
-    total: Double = 0.00,
+    income: Double,
+    expenses: Double,
+    balance: Double,
     modifier: Modifier = Modifier
 ) {
 
@@ -26,7 +26,7 @@ fun BalanceBar(
     ) {
         BalanceInfo(text = stringResource(id = R.string.income), data = "$income", color = SeaGreen)
         BalanceInfo(text = stringResource(id = R.string.expenses), data = "$expenses", color = Persimmon)
-        BalanceInfo(text = stringResource(id = R.string.total), data = "$total", color = DodgerBlue)
+        BalanceInfo(text = stringResource(id = R.string.total), data = "$balance", color = DodgerBlue)
     }
 
 

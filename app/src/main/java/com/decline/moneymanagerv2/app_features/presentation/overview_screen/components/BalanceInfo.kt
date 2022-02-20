@@ -1,6 +1,5 @@
-package com.decline.moneymanagerv2.app_features.presentation.balance_screen.components
+package com.decline.moneymanagerv2.app_features.presentation.overview_screen.components
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.MaterialTheme

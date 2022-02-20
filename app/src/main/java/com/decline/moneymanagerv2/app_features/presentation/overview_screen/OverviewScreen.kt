@@ -1,4 +1,4 @@
-package com.decline.moneymanagerv2.app_features.presentation.balance_screen
+package com.decline.moneymanagerv2.app_features.presentation.overview_screen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -19,18 +19,18 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.decline.moneymanagerv2.R
-import com.decline.moneymanagerv2.app_features.presentation.balance_screen.components.BalanceBar
-import com.decline.moneymanagerv2.app_features.presentation.balance_screen.components.DateSelector
-import com.decline.moneymanagerv2.app_features.presentation.balance_screen.components.TransactionItem
+import com.decline.moneymanagerv2.app_features.presentation.overview_screen.components.BalanceBar
+import com.decline.moneymanagerv2.app_features.presentation.overview_screen.components.DateSelector
+import com.decline.moneymanagerv2.app_features.presentation.overview_screen.components.TransactionItem
+import com.decline.moneymanagerv2.app_features.presentation.overview_screen.components.parseDateText
 import com.decline.moneymanagerv2.app_features.presentation.util.Screen
 import com.decline.moneymanagerv2.ui.theme.LocalSpacing
-import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun BalanceScreen(
+fun OverviewScreen(
     navController: NavController,
-    viewModel: BalanceViewModel = hiltViewModel()
+    viewModel: OverviewViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
 
@@ -65,9 +65,9 @@ fun BalanceScreen(
             modifier = Modifier
         ) {
             DateSelector(
-                date = LocalDate.now(),
-                onPreviousDateClick = { /*TODO*/ },
-                onNextDateClick = { /*TODO*/ },
+                date = parseDateText(date = viewModel.state.date),
+                onPreviousDateClick = { viewModel.onEvent(OverviewEvent.PreviousDate) },
+                onNextDateClick = { viewModel.onEvent(OverviewEvent.NextDate) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = MaterialTheme.colors.surface)
@@ -77,12 +77,15 @@ fun BalanceScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = MaterialTheme.colors.surface)
-                    .padding(spacing.spaceExtraSmall)
+                    .padding(spacing.spaceExtraSmall),
+                income = viewModel.state.income,
+                expenses = viewModel.state.expense,
+                balance = viewModel.state.balance
             )
             Divider(thickness = 1.dp, modifier = Modifier.shadow(elevation = 3.dp))
             Spacer(modifier = Modifier.padding(spacing.spaceExtraSmall))
             LazyColumn(contentPadding = PaddingValues(bottom = 80.dp)) {
-                items(viewModel.transactions) { transaction ->
+                items(viewModel.state.transactions) { transaction ->
                     TransactionItem(
                         transaction = transaction,
                         modifier = Modifier

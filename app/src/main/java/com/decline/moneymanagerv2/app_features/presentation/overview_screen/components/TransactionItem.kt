@@ -1,4 +1,4 @@
-package com.decline.moneymanagerv2.app_features.presentation.balance_screen.components
+package com.decline.moneymanagerv2.app_features.presentation.overview_screen.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
