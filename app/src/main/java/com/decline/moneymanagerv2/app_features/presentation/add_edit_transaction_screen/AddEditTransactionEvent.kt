@@ -4,7 +4,7 @@ import com.decline.moneymanagerv2.app_features.domain.model.Transaction
 
 sealed class AddEditTransactionEvent {
     data class EnteredDescription(val value: String) : AddEditTransactionEvent()
-    data class EnteredAmount(val value: Double) : AddEditTransactionEvent()
+    data class EnteredAmount(val value: String) : AddEditTransactionEvent()
     data class DeleteTransaction(val transaction: Transaction) : AddEditTransactionEvent()
     object ExpenseSelected : AddEditTransactionEvent()
     object IncomeSelected : AddEditTransactionEvent()

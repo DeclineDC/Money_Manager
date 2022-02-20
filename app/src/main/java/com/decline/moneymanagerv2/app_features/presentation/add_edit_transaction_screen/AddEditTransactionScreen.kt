@@ -32,7 +32,7 @@ fun AddEditTransactionScreen(
 
     val spacing = LocalSpacing.current
     val scaffoldState = rememberScaffoldState()
-    val isExpenseSelected = viewModel.isExpenseSelected
+    val isExpenseSelected = viewModel.state.isExpenseSelected
 
     Scaffold(scaffoldState = scaffoldState, modifier = Modifier.fillMaxSize()) {
 
@@ -74,21 +74,21 @@ fun AddEditTransactionScreen(
             Spacer(modifier = Modifier.padding(spacing.spaceSmall))
             TextFieldRow(
                 text = stringResource(R.string.description),
-                value = "",
+                value = viewModel.state.description,
                 color = if (isExpenseSelected) Persimmon else SeaGreen,
                 isEditable = true,
-                onValueChange = {}
+                onValueChange = {viewModel.onEvent(AddEditTransactionEvent.EnteredDescription(it))}
             )
             TextFieldRow(
                 text = stringResource(R.string.amount),
-                value = "",
+                value = viewModel.state.amount.toString(),
                 color = if (isExpenseSelected) Persimmon else SeaGreen,
                 isEditable = true,
-                onValueChange = {}
+                onValueChange = {viewModel.onEvent(AddEditTransactionEvent.EnteredAmount(it))}
             )
             TextFieldRow(
                 text = stringResource(R.string.date),
-                value = "",
+                value = viewModel.state.date.toString(),
                 color = if (isExpenseSelected) Persimmon else SeaGreen,
                 isEditable = true,
                 onValueChange = {},
@@ -99,7 +99,7 @@ fun AddEditTransactionScreen(
             AddButton(
                 modifier = Modifier.align(CenterHorizontally),
                 text = stringResource(R.string.add),
-                onClick = {},
+                onClick = {viewModel.onEvent(AddEditTransactionEvent.SaveTransaction)},
                 color = if (isExpenseSelected) Persimmon else SeaGreen
             )
 
