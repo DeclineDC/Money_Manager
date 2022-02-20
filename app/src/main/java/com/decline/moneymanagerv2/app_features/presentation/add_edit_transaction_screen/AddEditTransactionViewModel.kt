@@ -1,5 +1,6 @@
 package com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,8 +19,8 @@ class AddEditTransactionViewModel @Inject constructor(
     var isExpenseSelected by mutableStateOf(true)
         private set
 
-    /*var isIncomeSelected by mutableStateOf(false)
-        private set*/
+    private val _shouldShowDatePicker = mutableStateOf(false)
+    val shouldShowDatePicker: State<Boolean> = _shouldShowDatePicker
 
 
     fun onEvent(event: AddEditTransactionEvent) {
@@ -35,6 +36,9 @@ class AddEditTransactionViewModel @Inject constructor(
                 isExpenseSelected = false
             }
             is AddEditTransactionEvent.DeleteTransaction -> {
+            }
+            is AddEditTransactionEvent.ShowDatePicker -> {
+                _shouldShowDatePicker.value = true
             }
         }
     }

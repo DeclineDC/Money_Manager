@@ -1,28 +1,29 @@
 package com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.decline.moneymanagerv2.R
-import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.AddButton
-import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.SelectableButton
-import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.TextFieldRow
-import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.TopBar
+import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.*
 import com.decline.moneymanagerv2.ui.theme.LocalSpacing
 import com.decline.moneymanagerv2.ui.theme.Persimmon
 import com.decline.moneymanagerv2.ui.theme.SeaGreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddEditTransactionScreen(
     navController: NavController,
@@ -89,8 +90,8 @@ fun AddEditTransactionScreen(
                 text = stringResource(R.string.date),
                 value = "",
                 color = if (isExpenseSelected) Persimmon else SeaGreen,
-                isEditable = false,
-                onValueChange = {}
+                isEditable = true,
+                onValueChange = {},
             )
             Spacer(modifier = Modifier.fillMaxHeight(.1f))
             Divider(thickness = 1.dp, modifier = Modifier.shadow(elevation = 2.dp))
@@ -98,7 +99,7 @@ fun AddEditTransactionScreen(
             AddButton(
                 modifier = Modifier.align(CenterHorizontally),
                 text = stringResource(R.string.add),
-                onClick = { /*TODO*/ },
+                onClick = {},
                 color = if (isExpenseSelected) Persimmon else SeaGreen
             )
 

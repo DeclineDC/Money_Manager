@@ -9,4 +9,5 @@ sealed class AddEditTransactionEvent {
     object ExpenseSelected : AddEditTransactionEvent()
     object IncomeSelected : AddEditTransactionEvent()
     object SaveTransaction : AddEditTransactionEvent()
+    object ShowDatePicker : AddEditTransactionEvent()
 }
