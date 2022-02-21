@@ -16,6 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,38 +34,65 @@ class AddEditTransactionViewModel @Inject constructor(
     private val _shouldShowDatePicker = mutableStateOf(false)
     val shouldShowDatePicker: State<Boolean> = _shouldShowDatePicker
 
+    var currentTransactionId: Int? = null
+
+    init {
+        savedStateHandle.get<Int>("transactionId")?.let { transactionId ->
+            if (transactionId != -1) {
+                viewModelScope.launch {
+                    moneyManagerUseCases.getTransaction(transactionId)?.also { transaction ->
+                        currentTransactionId = transaction.id
+                        state = state.copy(
+                            description = transaction.description,
+                            amount = transaction.amount.toString(),
+                            isExpenseSelected = transaction.isExpense,
+                            date = LocalDate.now() // need to change this to the date in the db
+                        )
+
+                    }
+                }
+
+            }
+        }
+    }
+
 
     fun onEvent(event: AddEditTransactionEvent) {
         when (event) {
-            is AddEditTransactionEvent.EnteredDescription -> {
+            is AddEditTransactionEvent.OnDescriptionChange -> {
                 state = state.copy(
                     description = event.value
                 )
             }
-            is AddEditTransactionEvent.EnteredAmount -> {
+            is AddEditTransactionEvent.OnAmountChange -> {
                 state = state.copy(
                     amount = event.value
                 )
             }
-            is AddEditTransactionEvent.ExpenseSelected -> {
+            is AddEditTransactionEvent.OnExpenseSelected -> {
                 state = state.copy(
                     isExpenseSelected = true
                 )
             }
-            is AddEditTransactionEvent.IncomeSelected -> {
+            is AddEditTransactionEvent.OnIncomeSelected -> {
                 state = state.copy(
                     isExpenseSelected = false
                 )
             }
-            is AddEditTransactionEvent.DeleteTransaction -> {
+            is AddEditTransactionEvent.OnDeleteClick -> {
                 viewModelScope.launch {
                     moneyManagerUseCases.deleteTransaction(event.transaction)
+                }
+            }
+            is AddEditTransactionEvent.OnBackClick -> {
+                viewModelScope.launch {
+                    _eventFlow.emit(UiEvent.OnBackClick)
                 }
             }
             is AddEditTransactionEvent.ShowDatePicker -> {
                 _shouldShowDatePicker.value = true
             }
-            is AddEditTransactionEvent.SaveTransaction -> {
+            is AddEditTransactionEvent.OnSaveTransaction -> {
                 Log.e("saving", "trying to save transaction")
                 viewModelScope.launch {
                     try {
@@ -75,7 +103,8 @@ class AddEditTransactionViewModel @Inject constructor(
                                 dayOfMonth = state.date.dayOfMonth,
                                 month = state.date.monthValue,
                                 year = state.date.year,
-                                isExpense = state.isExpenseSelected
+                                isExpense = state.isExpenseSelected,
+                                id = currentTransactionId
                             )
                         )
                         _eventFlow.emit(UiEvent.SaveTransaction)

@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
+import androidx.navigation.compose.navArgument
 import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.AddEditTransactionScreen
 import com.decline.moneymanagerv2.app_features.presentation.overview_screen.OverviewScreen
 import com.decline.moneymanagerv2.app_features.presentation.util.Screen
@@ -49,14 +51,14 @@ class MainActivity : ComponentActivity() {
                             route = Screen.AddEditTransactionScreen.route +
                                     "?transactionId={transactionId}",
 
-                            /*arguments = listOf(
+                            arguments = listOf(
                                 navArgument(
                                     name = "transactionId"
                                 ) {
                                     type = NavType.IntType
                                     defaultValue = -1
                                 }
-                            )*/
+                            )
 
                         ) {
                             AddEditTransactionScreen(navController = navController)

@@ -3,23 +3,25 @@ package com.decline.moneymanagerv2.app_features.presentation.add_edit_transactio
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.decline.moneymanagerv2.R
-import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.*
+import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.AddButton
+import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.SelectableButton
+import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.TextFieldRow
+import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.TopBar
 import com.decline.moneymanagerv2.app_features.presentation.util.Screen
 import com.decline.moneymanagerv2.app_features.presentation.util.UiEvent
 import com.decline.moneymanagerv2.ui.theme.LocalSpacing
@@ -49,6 +51,9 @@ fun AddEditTransactionScreen(
                 is UiEvent.SaveTransaction -> {
                     navController.navigate(Screen.OverviewScreen.route)
                 }
+                is UiEvent.OnBackClick -> {
+                    navController.navigate(Screen.OverviewScreen.route)
+                }
             }
         }
     }
@@ -65,7 +70,7 @@ fun AddEditTransactionScreen(
                 text =
                 if (isExpenseSelected) stringResource(R.string.expense)
                 else stringResource(R.string.income),
-                onBackClick = {},
+                onBackClick = { viewModel.onEvent(AddEditTransactionEvent.OnBackClick) },
                 onDeleteClick = {}
             )
             Spacer(modifier = Modifier.padding(spacing.spaceSmall))
@@ -77,14 +82,14 @@ fun AddEditTransactionScreen(
             ) {
                 SelectableButton(
                     text = stringResource(id = R.string.income),
-                    onClick = { viewModel.onEvent(AddEditTransactionEvent.IncomeSelected) },
+                    onClick = { viewModel.onEvent(AddEditTransactionEvent.OnIncomeSelected) },
                     isSelected = !isExpenseSelected,
                     color = SeaGreen,
                     modifier = Modifier.size(width = 125.dp, height = 35.dp)
                 )
                 SelectableButton(
                     text = stringResource(id = R.string.expense),
-                    onClick = { viewModel.onEvent(AddEditTransactionEvent.ExpenseSelected) },
+                    onClick = { viewModel.onEvent(AddEditTransactionEvent.OnExpenseSelected) },
                     isSelected = isExpenseSelected,
                     color = Persimmon,
                     modifier = Modifier.size(width = 125.dp, height = 35.dp)
@@ -96,14 +101,14 @@ fun AddEditTransactionScreen(
                 value = viewModel.state.description,
                 color = if (isExpenseSelected) Persimmon else SeaGreen,
                 isEditable = true,
-                onValueChange = {viewModel.onEvent(AddEditTransactionEvent.EnteredDescription(it))}
+                onValueChange = { viewModel.onEvent(AddEditTransactionEvent.OnDescriptionChange(it)) }
             )
             TextFieldRow(
                 text = stringResource(R.string.amount),
                 value = viewModel.state.amount.toString(),
                 color = if (isExpenseSelected) Persimmon else SeaGreen,
                 isEditable = true,
-                onValueChange = {viewModel.onEvent(AddEditTransactionEvent.EnteredAmount(it))}
+                onValueChange = { viewModel.onEvent(AddEditTransactionEvent.OnAmountChange(it)) }
             )
             TextFieldRow(
                 text = stringResource(R.string.date),
@@ -118,7 +123,7 @@ fun AddEditTransactionScreen(
             AddButton(
                 modifier = Modifier.align(CenterHorizontally),
                 text = stringResource(R.string.add),
-                onClick = {viewModel.onEvent(AddEditTransactionEvent.SaveTransaction)},
+                onClick = { viewModel.onEvent(AddEditTransactionEvent.OnSaveTransaction) },
                 color = if (isExpenseSelected) Persimmon else SeaGreen
             )
 
