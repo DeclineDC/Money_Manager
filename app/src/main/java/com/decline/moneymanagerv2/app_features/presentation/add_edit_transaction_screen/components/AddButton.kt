@@ -19,9 +19,7 @@ fun AddButton(
 
     ) {
     Button(
-        onClick = {
-            onClick
-        },
+        onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = color),
         modifier = modifier
             .fillMaxWidth(.75f)

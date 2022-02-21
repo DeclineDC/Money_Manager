@@ -1,8 +1,5 @@
 package com.decline.moneymanagerv2.app_features.presentation.overview_screen
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -12,10 +9,10 @@ import com.decline.moneymanagerv2.app_features.domain.use_case.MoneyManagerUseCa
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,19 +24,18 @@ class OverviewViewModel @Inject constructor(
         private set
 
     init {
-        getMonthlyData(state.date)
+        getDataByMonth(state.date)
     }
 
-    // Might need to split this function up
-    private fun getMonthlyData(date: LocalDate) {
-        viewModelScope.launch {
-            moneyManagerUseCases.getTransactionsByMonth(date)
-                .onEach { transactions ->
-                    state = state.copy(
-                        transactions = transactions
-                    )
-                }
-        }
+    private fun getDataByMonth(date: LocalDate) {
+        moneyManagerUseCases.getTransactionsByMonth(date)
+            .onEach { transactions ->
+                state = state.copy(
+                    transactions = transactions
+                )
+            }
+            .launchIn(viewModelScope)
+
         viewModelScope.launch {
             moneyManagerUseCases.getExpenseByMonth(date)
                 ?.let {
@@ -70,8 +66,6 @@ class OverviewViewModel @Inject constructor(
                     }
                 }
         }
-
-
     }
 
     fun onEvent(event: OverviewEvent) {
@@ -80,13 +74,13 @@ class OverviewViewModel @Inject constructor(
                 state = state.copy(
                     date = state.date.minusMonths(1)
                 )
-                getMonthlyData(state.date)
+                getDataByMonth(state.date)
             }
             is OverviewEvent.NextDate -> {
                 state = state.copy(
                     date = state.date.plusMonths(1)
                 )
-                getMonthlyData(state.date)
+                getDataByMonth(state.date)
             }
         }
 

@@ -1,5 +1,6 @@
 package com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -64,6 +65,7 @@ class AddEditTransactionViewModel @Inject constructor(
                 _shouldShowDatePicker.value = true
             }
             is AddEditTransactionEvent.SaveTransaction -> {
+                Log.e("saving", "trying to save transaction")
                 viewModelScope.launch {
                     try {
                         moneyManagerUseCases.addTransaction(

@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -19,9 +20,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.decline.moneymanagerv2.R
 import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.*
+import com.decline.moneymanagerv2.app_features.presentation.util.Screen
+import com.decline.moneymanagerv2.app_features.presentation.util.UiEvent
 import com.decline.moneymanagerv2.ui.theme.LocalSpacing
 import com.decline.moneymanagerv2.ui.theme.Persimmon
 import com.decline.moneymanagerv2.ui.theme.SeaGreen
+import kotlinx.coroutines.flow.collectLatest
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -33,6 +37,21 @@ fun AddEditTransactionScreen(
     val spacing = LocalSpacing.current
     val scaffoldState = rememberScaffoldState()
     val isExpenseSelected = viewModel.state.isExpenseSelected
+
+    LaunchedEffect(key1 = true) {
+        viewModel.eventFlow.collectLatest { event ->
+            when (event) {
+                is UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message
+                    )
+                }
+                is UiEvent.SaveTransaction -> {
+                    navController.navigate(Screen.OverviewScreen.route)
+                }
+            }
+        }
+    }
 
     Scaffold(scaffoldState = scaffoldState, modifier = Modifier.fillMaxSize()) {
 
