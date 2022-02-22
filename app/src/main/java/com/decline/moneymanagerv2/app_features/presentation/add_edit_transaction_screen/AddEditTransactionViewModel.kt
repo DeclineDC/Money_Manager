@@ -35,6 +35,7 @@ class AddEditTransactionViewModel @Inject constructor(
     val shouldShowDatePicker: State<Boolean> = _shouldShowDatePicker
 
     var currentTransactionId: Int? = null
+    var currentTransaction: Transaction? = null
 
     init {
         savedStateHandle.get<Int>("transactionId")?.let { transactionId ->
@@ -42,6 +43,7 @@ class AddEditTransactionViewModel @Inject constructor(
                 viewModelScope.launch {
                     moneyManagerUseCases.getTransaction(transactionId)?.also { transaction ->
                         currentTransactionId = transaction.id
+                        currentTransaction = transaction
                         state = state.copy(
                             description = transaction.description,
                             amount = transaction.amount.toString(),
@@ -82,6 +84,7 @@ class AddEditTransactionViewModel @Inject constructor(
             is AddEditTransactionEvent.OnDeleteClick -> {
                 viewModelScope.launch {
                     moneyManagerUseCases.deleteTransaction(event.transaction)
+                    _eventFlow.emit(UiEvent.OnDeleteClick)
                 }
             }
             is AddEditTransactionEvent.OnBackClick -> {

@@ -20,6 +20,7 @@ fun TopBar(
     text: String,
     onBackClick: () -> Unit,
     onDeleteClick: () -> Unit,
+    isExistingTransaction: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     val spacing = LocalSpacing.current
@@ -47,13 +48,15 @@ fun TopBar(
                 modifier = Modifier.offset(y = 10.dp)
             )
         }
-        IconButton(
-            onClick = onDeleteClick,
-        ) {
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = stringResource(R.string.delete),
-            )
+        if (isExistingTransaction) {
+            IconButton(
+                onClick = onDeleteClick,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = stringResource(R.string.delete),
+                )
+            }
         }
     }
 }

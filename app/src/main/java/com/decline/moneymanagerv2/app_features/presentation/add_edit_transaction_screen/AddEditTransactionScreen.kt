@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -14,6 +15,8 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -54,6 +57,9 @@ fun AddEditTransactionScreen(
                 is UiEvent.OnBackClick -> {
                     navController.navigate(Screen.OverviewScreen.route)
                 }
+                is UiEvent.OnDeleteClick -> {
+                    navController.navigate(Screen.OverviewScreen.route)
+                }
             }
         }
     }
@@ -70,8 +76,9 @@ fun AddEditTransactionScreen(
                 text =
                 if (isExpenseSelected) stringResource(R.string.expense)
                 else stringResource(R.string.income),
+                isExistingTransaction = viewModel.currentTransaction != null,
                 onBackClick = { viewModel.onEvent(AddEditTransactionEvent.OnBackClick) },
-                onDeleteClick = {}
+                onDeleteClick = { viewModel.onEvent(AddEditTransactionEvent.OnDeleteClick(viewModel.currentTransaction!!)) }
             )
             Spacer(modifier = Modifier.padding(spacing.spaceSmall))
             Row(
@@ -101,20 +108,32 @@ fun AddEditTransactionScreen(
                 value = viewModel.state.description,
                 color = if (isExpenseSelected) Persimmon else SeaGreen,
                 isEditable = true,
-                onValueChange = { viewModel.onEvent(AddEditTransactionEvent.OnDescriptionChange(it)) }
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    capitalization = KeyboardCapitalization.Words
+                ),
+                onValueChange = {
+                    viewModel.onEvent(
+                        AddEditTransactionEvent.OnDescriptionChange(
+                            it
+                        )
+                    )
+                }
             )
             TextFieldRow(
                 text = stringResource(R.string.amount),
                 value = viewModel.state.amount.toString(),
                 color = if (isExpenseSelected) Persimmon else SeaGreen,
                 isEditable = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 onValueChange = { viewModel.onEvent(AddEditTransactionEvent.OnAmountChange(it)) }
             )
             TextFieldRow(
                 text = stringResource(R.string.date),
                 value = viewModel.state.date.toString(),
                 color = if (isExpenseSelected) Persimmon else SeaGreen,
-                isEditable = true,
+                keyboardOptions = KeyboardOptions(),
+                isEditable = false,
                 onValueChange = {},
             )
             Spacer(modifier = Modifier.fillMaxHeight(.1f))

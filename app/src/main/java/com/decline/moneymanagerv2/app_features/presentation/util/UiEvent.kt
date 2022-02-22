@@ -6,4 +6,5 @@ sealed class UiEvent {
     data class ShowSnackBar(val message: String) : UiEvent()
     object SaveTransaction : UiEvent()
     object OnBackClick : UiEvent()
+    object OnDeleteClick : UiEvent()
 }

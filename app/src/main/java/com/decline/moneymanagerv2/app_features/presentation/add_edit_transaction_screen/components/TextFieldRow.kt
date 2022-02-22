@@ -1,6 +1,7 @@
 package com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -9,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.decline.moneymanagerv2.ui.theme.LocalSpacing
 import com.decline.moneymanagerv2.ui.theme.TextFieldRowCursorColor
@@ -21,6 +24,7 @@ fun TextFieldRow(
     color: Color,
     isEditable: Boolean,
     onValueChange: (String) -> Unit,
+    keyboardOptions: KeyboardOptions,
     modifier: Modifier = Modifier,
 ) {
     val spacing = LocalSpacing.current
@@ -48,6 +52,7 @@ fun TextFieldRow(
             readOnly = !isEditable,
             singleLine = true,
             value = value,
+            keyboardOptions = keyboardOptions,
             onValueChange = onValueChange,
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = MaterialTheme.colors.surface,
