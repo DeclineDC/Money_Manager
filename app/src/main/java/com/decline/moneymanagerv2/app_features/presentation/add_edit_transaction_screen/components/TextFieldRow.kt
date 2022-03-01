@@ -24,6 +24,7 @@ fun TextFieldRow(
     onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions,
     modifier: Modifier = Modifier,
+    trailingIcon: @Composable() () -> Unit = {},
 ) {
     val spacing = LocalSpacing.current
 
@@ -56,7 +57,8 @@ fun TextFieldRow(
                 backgroundColor = MaterialTheme.colors.surface,
                 focusedIndicatorColor = color,
                 cursorColor = MaterialTheme.colors.TextFieldRowCursorColor
-            )
+            ),
+            trailingIcon = trailingIcon
         )
 
     }

@@ -1,19 +1,24 @@
 package com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen
 
+import android.app.DatePickerDialog
 import android.os.Build
+import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,6 +33,7 @@ import com.decline.moneymanagerv2.ui.theme.LocalSpacing
 import com.decline.moneymanagerv2.ui.theme.Persimmon
 import com.decline.moneymanagerv2.ui.theme.SeaGreen
 import kotlinx.coroutines.flow.collectLatest
+import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -39,6 +45,29 @@ fun AddEditTransactionScreen(
     val spacing = LocalSpacing.current
     val scaffoldState = rememberScaffoldState()
     val isExpenseSelected = viewModel.state.isExpenseSelected
+    val context = LocalContext.current
+
+    val date = remember { mutableStateOf("") }
+    val datePickerDialog =
+        DatePickerDialog(
+            context,
+            { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+                viewModel.onEvent(
+                    AddEditTransactionEvent.OnDateChange(
+                        LocalDate.of(
+                            year,
+                            month,
+                            dayOfMonth
+                        )
+                    )
+                )
+            },
+            viewModel.state.date.year,
+            viewModel.state.date.monthValue - 1,
+            viewModel.state.date.dayOfMonth
+        )
+
+
 
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
@@ -131,6 +160,17 @@ fun AddEditTransactionScreen(
                 keyboardOptions = KeyboardOptions(),
                 isEditable = false,
                 onValueChange = {},
+                trailingIcon =
+                {
+                    Icon(
+                        imageVector = Icons.Default.DateRange,
+                        contentDescription = "Select Date",
+                        modifier = Modifier.clickable {
+                            datePickerDialog.show()
+                        }
+                    )
+                }
+
             )
             Spacer(modifier = Modifier.fillMaxHeight(.1f))
             Divider(thickness = 1.dp, modifier = Modifier.shadow(elevation = 2.dp))

@@ -1,7 +1,5 @@
 package com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen
 
-import android.util.Log
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -31,9 +29,6 @@ class AddEditTransactionViewModel @Inject constructor(
     var state by mutableStateOf(AddEditTransactionState())
         private set
 
-    private val _shouldShowDatePicker = mutableStateOf(false)
-    val shouldShowDatePicker: State<Boolean> = _shouldShowDatePicker
-
     var currentTransactionId: Int? = null
     var currentTransaction: Transaction? = null
 
@@ -48,7 +43,11 @@ class AddEditTransactionViewModel @Inject constructor(
                             description = transaction.description,
                             amount = transaction.amount.toString(),
                             isExpenseSelected = transaction.isExpense,
-                            date = LocalDate.of(transaction.year, transaction.month, transaction.dayOfMonth)
+                            date = LocalDate.of(
+                                transaction.year,
+                                transaction.month,
+                                transaction.dayOfMonth
+                            )
                         )
 
                     }
@@ -57,7 +56,6 @@ class AddEditTransactionViewModel @Inject constructor(
             }
         }
     }
-
 
     fun onEvent(event: AddEditTransactionEvent) {
         when (event) {
@@ -71,9 +69,6 @@ class AddEditTransactionViewModel @Inject constructor(
                     amount = event.value
                 )
             }
-            is AddEditTransactionEvent.OnDateChange -> {
-
-            }
             is AddEditTransactionEvent.OnExpenseSelected -> {
                 state = state.copy(
                     isExpenseSelected = true
@@ -82,6 +77,11 @@ class AddEditTransactionViewModel @Inject constructor(
             is AddEditTransactionEvent.OnIncomeSelected -> {
                 state = state.copy(
                     isExpenseSelected = false
+                )
+            }
+            is AddEditTransactionEvent.OnDateChange -> {
+                state = state.copy(
+                    date = event.localDate
                 )
             }
             is AddEditTransactionEvent.OnDeleteClick -> {
@@ -95,11 +95,7 @@ class AddEditTransactionViewModel @Inject constructor(
                     _eventFlow.emit(UiEvent.OnBackClick)
                 }
             }
-            is AddEditTransactionEvent.ShowDatePicker -> {
-                _shouldShowDatePicker.value = true
-            }
             is AddEditTransactionEvent.OnSaveTransaction -> {
-                Log.e("value", "${state.amount.toDoubleOrNull()}")
                 viewModelScope.launch {
                     try {
                         moneyManagerUseCases.addTransaction(
