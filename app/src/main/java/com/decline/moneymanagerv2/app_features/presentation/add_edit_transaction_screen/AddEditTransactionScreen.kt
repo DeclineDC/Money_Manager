@@ -51,6 +51,7 @@ fun AddEditTransactionScreen(
     val datePickerDialog =
         DatePickerDialog(
             context,
+            R.style.DialogTheme,
             { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
                 viewModel.onEvent(
                     AddEditTransactionEvent.OnDateChange(
