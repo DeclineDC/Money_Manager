@@ -13,8 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -47,7 +45,6 @@ fun AddEditTransactionScreen(
     val isExpenseSelected = viewModel.state.isExpenseSelected
     val context = LocalContext.current
 
-    val date = remember { mutableStateOf("") }
     val datePickerDialog =
         DatePickerDialog(
             context,
@@ -57,7 +54,7 @@ fun AddEditTransactionScreen(
                     AddEditTransactionEvent.OnDateChange(
                         LocalDate.of(
                             year,
-                            month,
+                            month + 1,
                             dayOfMonth
                         )
                     )
