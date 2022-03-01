@@ -21,10 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.decline.moneymanagerv2.R
-import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.AddButton
-import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.SelectableButton
-import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.TextFieldRow
-import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.TopBar
+import com.decline.moneymanagerv2.app_features.presentation.add_edit_transaction_screen.components.*
 import com.decline.moneymanagerv2.app_features.presentation.util.Screen
 import com.decline.moneymanagerv2.app_features.presentation.util.UiEvent
 import com.decline.moneymanagerv2.ui.theme.LocalSpacing
@@ -80,7 +77,6 @@ fun AddEditTransactionScreen(
                 onBackClick = { viewModel.onEvent(AddEditTransactionEvent.OnBackClick) },
                 onDeleteClick = { viewModel.onEvent(AddEditTransactionEvent.OnDeleteClick(viewModel.currentTransaction!!)) }
             )
-            Spacer(modifier = Modifier.padding(spacing.spaceSmall))
             Row(
                 Modifier
                     .fillMaxWidth()
@@ -102,7 +98,7 @@ fun AddEditTransactionScreen(
                     modifier = Modifier.size(width = 125.dp, height = 35.dp)
                 )
             }
-            Spacer(modifier = Modifier.padding(spacing.spaceSmall))
+            Spacer(modifier = Modifier.padding(spacing.spaceExtraSmall))
             TextFieldRow(
                 text = stringResource(R.string.description),
                 value = viewModel.state.description,
@@ -130,7 +126,7 @@ fun AddEditTransactionScreen(
             )
             TextFieldRow(
                 text = stringResource(R.string.date),
-                value = viewModel.state.date.toString(),
+                value = parseTextFieldRowDateText(date = viewModel.state.date),
                 color = if (isExpenseSelected) Persimmon else SeaGreen,
                 keyboardOptions = KeyboardOptions(),
                 isEditable = false,

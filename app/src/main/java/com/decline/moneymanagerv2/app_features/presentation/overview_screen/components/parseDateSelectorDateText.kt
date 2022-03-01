@@ -5,6 +5,6 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun parseDateText(date: LocalDate): String {
+fun parseDateSelectorDateText(date: LocalDate): String {
     return DateTimeFormatter.ofPattern("LLL uuuu").format(date)
 }

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Transaction(
     val description: String,
-    val amount: Double,
+    val amount: Double?,
     val dayOfMonth: Int,
     val month: Int,
     val year: Int,

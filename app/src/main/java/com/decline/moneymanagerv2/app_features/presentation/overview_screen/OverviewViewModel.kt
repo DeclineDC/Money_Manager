@@ -72,13 +72,19 @@ class OverviewViewModel @Inject constructor(
         when (event) {
             is OverviewEvent.PreviousDate -> {
                 state = state.copy(
-                    date = state.date.minusMonths(1)
+                    date = state.date.minusMonths(1),
+                    balance = 0.0,
+                    income = 0.0,
+                    expense = 0.0
                 )
                 getDataByMonth(state.date)
             }
             is OverviewEvent.NextDate -> {
                 state = state.copy(
-                    date = state.date.plusMonths(1)
+                    date = state.date.plusMonths(1),
+                    balance = 0.0,
+                    income = 0.0,
+                    expense = 0.0
                 )
                 getDataByMonth(state.date)
             }

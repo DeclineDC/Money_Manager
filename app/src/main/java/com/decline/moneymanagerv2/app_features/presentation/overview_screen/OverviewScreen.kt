@@ -23,7 +23,7 @@ import com.decline.moneymanagerv2.R
 import com.decline.moneymanagerv2.app_features.presentation.overview_screen.components.BalanceBar
 import com.decline.moneymanagerv2.app_features.presentation.overview_screen.components.DateSelector
 import com.decline.moneymanagerv2.app_features.presentation.overview_screen.components.TransactionItem
-import com.decline.moneymanagerv2.app_features.presentation.overview_screen.components.parseDateText
+import com.decline.moneymanagerv2.app_features.presentation.overview_screen.components.parseDateSelectorDateText
 import com.decline.moneymanagerv2.app_features.presentation.util.Screen
 import com.decline.moneymanagerv2.ui.theme.LocalSpacing
 
@@ -66,7 +66,7 @@ fun OverviewScreen(
             modifier = Modifier
         ) {
             DateSelector(
-                date = parseDateText(date = viewModel.state.date),
+                date = parseDateSelectorDateText(date = viewModel.state.date),
                 onPreviousDateClick = { viewModel.onEvent(OverviewEvent.PreviousDate) },
                 onNextDateClick = { viewModel.onEvent(OverviewEvent.NextDate) },
                 modifier = Modifier

@@ -9,18 +9,19 @@ class AddTransaction(
     private val repository: MoneyManagerRepository
 ) {
 
-    @Throws(InvalidTransactionException::class, NumberFormatException::class)
+    @Throws(InvalidTransactionException::class)
 
     suspend operator fun invoke(transaction: Transaction) {
+        if (transaction.description.isBlank() && (transaction.amount == null || transaction.amount == 0.0)) {
+            throw InvalidTransactionException("Enter a description and amount")
+        }
         if (transaction.description.isBlank()) {
-            throw InvalidTransactionException("The description can't be empty")
+            throw InvalidTransactionException("Enter a description")
         }
-        if (transaction.amount.equals(0.0)) {
-            throw InvalidTransactionException("The amount can't be empty")
+        if (transaction.amount == null || transaction.amount == 0.0) {
+            throw InvalidTransactionException("Invalid amount")
         }
-        if (transaction.amount.isNaN()) {
-            throw InvalidTransactionException("Invalid Amount")
-        }
+
         repository.insertTransaction(transaction)
     }
 }

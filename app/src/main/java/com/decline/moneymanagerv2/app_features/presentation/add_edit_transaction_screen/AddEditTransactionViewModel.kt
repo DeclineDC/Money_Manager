@@ -48,7 +48,7 @@ class AddEditTransactionViewModel @Inject constructor(
                             description = transaction.description,
                             amount = transaction.amount.toString(),
                             isExpenseSelected = transaction.isExpense,
-                            date = LocalDate.now() // need to change this to the date in the db
+                            date = LocalDate.of(transaction.year, transaction.month, transaction.dayOfMonth)
                         )
 
                     }
@@ -70,6 +70,9 @@ class AddEditTransactionViewModel @Inject constructor(
                 state = state.copy(
                     amount = event.value
                 )
+            }
+            is AddEditTransactionEvent.OnDateChange -> {
+
             }
             is AddEditTransactionEvent.OnExpenseSelected -> {
                 state = state.copy(
@@ -96,13 +99,13 @@ class AddEditTransactionViewModel @Inject constructor(
                 _shouldShowDatePicker.value = true
             }
             is AddEditTransactionEvent.OnSaveTransaction -> {
-                Log.e("saving", "trying to save transaction")
+                Log.e("value", "${state.amount.toDoubleOrNull()}")
                 viewModelScope.launch {
                     try {
                         moneyManagerUseCases.addTransaction(
                             Transaction(
                                 description = state.description,
-                                amount = state.amount.toDouble(),
+                                amount = state.amount.toDoubleOrNull(),
                                 dayOfMonth = state.date.dayOfMonth,
                                 month = state.date.monthValue,
                                 year = state.date.year,

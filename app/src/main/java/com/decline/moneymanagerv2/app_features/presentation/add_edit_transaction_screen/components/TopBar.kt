@@ -29,8 +29,7 @@ fun TopBar(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
             .fillMaxWidth()
-            .padding(spacing.spaceExtraSmall)
-            .padding(start = 10.dp, end = 10.dp)
+            .padding(bottom = spacing.spaceExtraSmall)
     ) {
         Row() {
             IconButton(
